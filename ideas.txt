@@ -1,0 +1,12 @@
+--Systems
+Life Support
+Defense Shielding
+
+--Sensers/Scanners
+Radar
+Oxygen Sensor
+Temperature Sensor
+Light Sensor
+Humidity Sensor
+Radio
+Status Sensor
