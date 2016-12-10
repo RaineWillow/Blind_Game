@@ -44,14 +44,14 @@ End Function
 
 sub App.Main()
    do 'The main rendering loop
-      screenlock 'locks the screen so you can
-      cls
+      screenlock 'locks the screen so you can put stuff on it
+      cls 'clears the screen
       print "FPS:"; this.fps
       this.Game.Render() 'Renders the game onto the screen
       screenunlock
-      sleep this.Regulate(this.Max_FPS, this.fps)
+      sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
       this.Game.Update() 'Updates the engine
-   loop until inkey = chr(255) + "k" or multikey(SC_ESCAPE)
+   loop until inkey = chr(255) + "k" or multikey(SC_ESCAPE) 'loops until the escape key is hit or the close button is hit
 end sub
 
 dim Self as App
