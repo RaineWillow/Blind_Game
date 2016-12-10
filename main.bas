@@ -1,4 +1,4 @@
-'Box Test
+'Main file
 #include "fbgfx.bi"
 using FB
 #include "box.bas"
