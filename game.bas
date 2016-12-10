@@ -9,10 +9,10 @@ type Engine
 end type
 
 
-sub Engine.update()
+sub Engine.Update()
    this.state = 2
 end sub
 
-sub Engine.render()
+sub Engine.Render()
    print this.state
 end sub

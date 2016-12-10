@@ -43,14 +43,14 @@ End Function
 '===============================================================================
 
 sub App.Main()
-   do
-      screenlock
+   do 'The main rendering loop
+      screenlock 'locks the screen so you can
       cls
       print "FPS:"; this.fps
-      this.Game.Render()
+      this.Game.Render() 'Renders the game onto the screen
       screenunlock
       sleep this.Regulate(this.Max_FPS, this.fps)
-      this.Game.Engine()
+      this.Game.Update() 'Updates the engine
    loop until inkey = chr(255) + "k" or multikey(SC_ESCAPE)
 end sub
 
