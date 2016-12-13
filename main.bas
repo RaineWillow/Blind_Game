@@ -1,8 +1,8 @@
 'Main file
 #include "fbgfx.bi"
 using FB
-#include "box.bas"
-#include "game.bas"
+#include "source/box.bas"
+#include "source/game.bas"
 
 type App
    private:
