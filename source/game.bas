@@ -14,5 +14,5 @@ sub Engine.Update()
 end sub
 
 sub Engine.Render()
-   print this.state
+   print "hi"
 end sub
