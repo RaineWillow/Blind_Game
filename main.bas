@@ -6,16 +6,16 @@ dim ImgPth as string = "res/img/tiles/"
 
 screenres 800, 600, 32
 
-dim shared ImageList(0 to 99) as any ptr
-for x as integer = 0 to 99
+dim shared ImageList(0 to 3) as any ptr
+for x as integer = 0 to 3
     ImageList(x) = imagecreate(32, 32)
 next
 
-bload "res/img/tiles/floor.bmp", ImageList(0)
-bload "res/img/tiles/metalceiling.bmp", ImageList(1)
-bload "res/img/tiles/metalwall.bmp", ImageList(2)
+line ImageList(0), (0, 0)-(32, 32), rgb(20, 20, 20), bf
+line ImageList(1), (0, 0)-(32, 32), rgb(255, 255, 255), bf
+line ImageList(2), (0, 0)-(32, 32), rgb(160, 100, 100), b
 
-dim shared MovementAmount as double
+dim shared MOVEMENT_AMOUNT as double
 
 #include "source/box.bas"
 #include "source/game.bas"
@@ -65,7 +65,7 @@ sub App.Main()
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
       
       if FPS > 0 then 'Sets the global movement speed
-          MovementAmount = 1/FPS
+          MOVEMENT_AMOUNT = 1/FPS
       end if
       this.Game.Update() 'Updates the engine
    loop until inkey = chr(255) + "k" or multikey(SC_ESCAPE) 'loops until the escape key is hit or the close button is hit

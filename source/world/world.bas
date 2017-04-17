@@ -15,7 +15,8 @@ end type
 
 sub ZaWarudo.Init()
     this.LoadedChunk.Init(0, 0)
-    this.Player1.Init(40, 40)
+    this.Player1.Init(0, 0)
+    this.Player1.SetTile(16, 16)
 end sub
 
 sub ZaWarudo.Update()
@@ -26,4 +27,5 @@ end sub
 sub ZaWarudo.Render()
     this.LoadedChunk.Render(this.Viewer)
     this.Player1.Render(this.Viewer)
+    print Viewer.GetCameraX()
 end sub
