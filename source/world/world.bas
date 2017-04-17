@@ -27,5 +27,4 @@ end sub
 sub ZaWarudo.Render()
     this.LoadedChunk.Render(this.Viewer)
     this.Player1.Render(this.Viewer)
-    print Viewer.GetCameraX()
 end sub
