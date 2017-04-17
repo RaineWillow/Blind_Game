@@ -1,7 +1,24 @@
 'Main file
 #include "fbgfx.bi"
 using FB
+
+dim ImgPth as string = "res/img/tiles/"
+
+screenres 800, 600, 32
+
+dim shared ImageList(0 to 99) as any ptr
+for x as integer = 0 to 99
+    ImageList(x) = imagecreate(32, 32)
+next
+
+bload "res/img/tiles/floor.bmp", ImageList(0)
+bload "res/img/tiles/metalceiling.bmp", ImageList(1)
+bload "res/img/tiles/metalwall.bmp", ImageList(2)
+
+dim shared MovementAmount as double
+
 #include "source/box.bas"
+#include "source/ent/player.bas"
 #include "source/game.bas"
 
 type App
@@ -14,10 +31,6 @@ type App
       declare Function Regulate(ByVal MyFps As Integer,ByRef fps As Integer) As Integer
       declare sub Main()
 end type
-
-
-
-screenres 800, 600, 32
 
 '===============================================================================
 Function App.FrameCounter() As Integer
@@ -43,13 +56,18 @@ End Function
 '===============================================================================
 
 sub App.Main()
+   this.Game.Init()
    do 'The main rendering loop
       screenlock 'locks the screen so you can put stuff on it
       cls 'clears the screen
-      print "FPS:"; this.fps
       this.Game.Render() 'Renders the game onto the screen
+      print "FPS:"; this.fps
       screenunlock
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
+      
+      if FPS > 0 then 'Sets the global movement speed
+          MovementAmount = 1/FPS
+      end if
       this.Game.Update() 'Updates the engine
    loop until inkey = chr(255) + "k" or multikey(SC_ESCAPE) 'loops until the escape key is hit or the close button is hit
 end sub

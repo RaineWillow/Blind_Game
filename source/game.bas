@@ -1,18 +1,24 @@
 'Game Class
+#include "world/world.bas"
 
 type Engine
    private:
       dim State as integer
+      dim World as ZaWarudo
    public:
+      declare sub Init()
       declare sub Update()
       declare sub Render()
 end type
 
+sub Engine.Init()
+    World.Init()
+end sub
 
 sub Engine.Update()
-   this.state = 2
+    World.Update()
 end sub
 
 sub Engine.Render()
-   print "hi"
+    World.Render()
 end sub

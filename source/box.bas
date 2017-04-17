@@ -72,7 +72,7 @@ end sub
 declare function GetBoxIntersect(byval Box1 as Box, byval Box2 as Box) as integer
 declare function GetBoxInPoint(byval Box1 as Box, byval Px as integer, byval Py as integer) as integer
 
-function GetBoxIntersect(byval Box1 as Box, byval Box2 as Box) as integer
+function GetBoxIntersect(byval Box1 as Box, byval Box2 as Box) as integer 'Finds out if two boxes are intersecting
    if Box1.GetBoxX() < Box2.GetBoxX2() and Box1.GetBoxX2 > Box2.GetBoxX and Box1.GetBoxY() < Box2.GetBoxY2() and Box1.GetBoxY2() > Box2.GetBoxY() then
       return 1
    else
@@ -80,12 +80,10 @@ function GetBoxIntersect(byval Box1 as Box, byval Box2 as Box) as integer
    end if
 end function
 
-function GetBoxInPoint(byval Box1 as Box, byval Px as integer, byval Py as integer) as integer
+function GetBoxInPoint(byval Box1 as Box, byval Px as integer, byval Py as integer) as integer 'Finds out if a point is within a box
    if Box1.GetBoxX < Px and Box1.GetBoxX2 > Px and Box1.GetBoxY < Py and Box1.GetBoxY2 > Py then
       return 1
    else
       return 0
    end if
 end function
-
-
