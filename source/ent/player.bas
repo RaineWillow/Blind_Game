@@ -4,12 +4,11 @@ type Player
     private:
         dim PlayerSpeed as integer = 300
     public:
-        
         dim BoundingBox as Box
         
         declare sub Init(byval PlayerX as integer, byval PlayerY as integer)
         declare sub Update()
-        declare sub Render()
+        declare sub Render(byval Viewer as Camera)
 end type
 
 sub Player.Init(byval PlayerX as integer, byval PlayerY as integer)
@@ -35,8 +34,7 @@ sub Player.Update()
     
 end sub
 
-sub Player.Render()
-    line (this.BoundingBox.GetBoxX(), this.BoundingBox.GetBoxY())-(this.BoundingBox.GetBoxX2(), this.BoundingBox.GetBoxY2()), rgb(255, 255, 255), B
-    print MovementAmount
+sub Player.Render(byval Viewer as Camera)
+    line (this.BoundingBox.GetBoxX() + Viewer.GetCameraX(), this.BoundingBox.GetBoxY() + Viewer.GetCameraY())-(this.BoundingBox.GetBoxX2() + Viewer.GetCameraX(), this.BoundingBox.GetBoxY2() + Viewer.GetCameraY()), rgb(255, 255, 255), B
 end sub
 

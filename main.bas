@@ -18,7 +18,6 @@ bload "res/img/tiles/metalwall.bmp", ImageList(2)
 dim shared MovementAmount as double
 
 #include "source/box.bas"
-#include "source/ent/player.bas"
 #include "source/game.bas"
 
 type App

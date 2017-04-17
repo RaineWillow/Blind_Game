@@ -1,11 +1,12 @@
 'World Class
+#include "camera.bas"
 #include "chunk.bas"
+#include "source/ent/player.bas"
 type ZaWarudo
     private:
-        dim ChunkList as Chunk ptr
-        
         dim Player1 as Player
-        dim TestChunk as Chunk
+        dim LoadedChunk as Chunk
+        dim Viewer as Camera
     public:
         declare sub Init()
         declare sub Update()
@@ -13,15 +14,16 @@ type ZaWarudo
 end type
 
 sub ZaWarudo.Init()
-    this.TestChunk.Init(0, 0)
+    this.LoadedChunk.Init(0, 0)
     this.Player1.Init(40, 40)
 end sub
 
 sub ZaWarudo.Update()
     this.Player1.Update()
+    this.Viewer.Update(this.Player1.BoundingBox.GetBoxX(), this.Player1.BoundingBox.GetBoxY())
 end sub
 
 sub ZaWarudo.Render()
-    this.TestChunk.Render()
-    this.Player1.Render()
+    this.LoadedChunk.Render(this.Viewer)
+    this.Player1.Render(this.Viewer)
 end sub
