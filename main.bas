@@ -40,7 +40,7 @@ Function App.FrameCounter() As Integer
     Function= answer
 End Function
 '==============================================================================
-Function App.Regulate(ByVal MyFps As Integer,ByRef fps As Integer) As Integer
+Function App.Regulate(ByVal MyFps As Integer, ByRef fps As Integer) As Integer
     fps=FrameCounter()
     Static As Double timervalue,lastsleeptime
     Dim As Double delta
