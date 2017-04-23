@@ -14,6 +14,7 @@ type Chunk
         
         declare function GetTileX(byval TileX as integer) as integer
         declare function GetTileY(byval TileY as integer) as integer
+        declare function GetTile(byval TileX as integer, byval TileY as integer) as Tile
 end type
 
 sub Chunk.Init(byval ChunkX as integer, byval ChunkY as integer)
@@ -50,3 +51,6 @@ function Chunk.GetTileY(byval TileY as integer) as integer
     return TileY * 32
 end function
 
+function Chunk.GetTile(byval TileX as integer, byval TileY as integer) as Tile
+    return TileList(TileX, TileY)
+end function

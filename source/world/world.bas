@@ -27,4 +27,9 @@ end sub
 sub ZaWarudo.Render()
     this.LoadedChunk.Render(this.Viewer)
     this.Player1.Render(this.Viewer)
+    dim TestTile1 as Tile
+    dim TestTile2 as Tile
+    dim TestTile3 as Tile
+    print "Player Tile X: "; this.Player1.GetTileX()
+    print "Player Tile Y: "; this.Player1.GetTileY()
 end sub
