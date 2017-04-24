@@ -20,7 +20,7 @@ sub ZaWarudo.Init()
 end sub
 
 sub ZaWarudo.Update()
-    this.Player1.Update()
+    this.Player1.Update(LoadedChunk)
     this.Viewer.Update(this.Player1.BoundingBox.GetBoxX(), this.Player1.BoundingBox.GetBoxY())
 end sub
 
