@@ -32,5 +32,5 @@ sub ZaWarudo.Render()
     dim TestTile3 as Tile
     print "Player Tile X: "; this.Player1.GetTileX()
     print "Player Tile Y: "; this.Player1.GetTileY()
-    print multikey(SC_T)
+    print "Player Tile Y: "; this.Player1.GetTileY()
 end sub
