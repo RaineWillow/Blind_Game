@@ -16,6 +16,8 @@ line ImageList(1), (0, 0)-(32, 32), rgb(255, 255, 255), bf
 line ImageList(2), (0, 0)-(32, 32), rgb(160, 100, 100), b
 
 dim shared MOVEMENT_AMOUNT as double
+dim shared MOVE_X_DEBUG as integer
+dim shared MOVE_Y_DEBUG as integer
 
 #include "source/box.bas"
 #include "source/game.bas"
@@ -61,6 +63,7 @@ sub App.Main()
       cls 'clears the screen
       this.Game.Render() 'Renders the game onto the screen
       print "FPS:"; this.fps
+      print "Movement Debug:"; MOVE_X_DEBUG; ", "; MOVE_Y_DEBUG
       screenunlock
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
       

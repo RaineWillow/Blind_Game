@@ -24,9 +24,9 @@ sub Player.Init(byval PlayerX as integer, byval PlayerY as integer)
 end sub
 
 function Player.WillCollide(byref CurrChunk as Chunk, byval TestBox as Box) as Tile
+    dim CurrTile as Tile
     for x as integer = (this.GetTileX() - 1) to (this.GetTileX + 1)
         for y as integer = (this.GetTileY() - 1) to (this.GetTileY + 1)
-            dim CurrTile as Tile
             CurrTile = CurrChunk.GetTile(x, y)
             if CurrTile.GetTileID() = 1 then 'This may be changed later
                 if GetBoxIntersect(TestBox, CurrTile.BoundingBox) then
@@ -43,61 +43,45 @@ end function
 sub Player.Update(byref CurrChunk as Chunk)
     dim TestBox as Box
     dim TestTile as Tile
+    dim upDown as Integer
+    dim leftRight as Integer
+    dim moveX as Integer
+    dim moveY as Integer
+
+    leftRight = multikey(SC_A) + -1*multikey(SC_E)
+    upDown = multikey(SC_COMMA) + -1*multikey(SC_O)
+    moveX = leftRight*MOVEMENT_AMOUNT*this.PlayerSpeed
+    moveY = upDown*MOVEMENT_AMOUNT*this.PlayerSpeed
+
+    ' Check X-axis collision
     TestBox = this.BoundingBox
-    
-    if multikey(SC_W) then
-        TestBox.SetBoxY(this.BoundingBox.GetBoxY() - MOVEMENT_AMOUNT*PlayerSpeed)
-        TestTile = this.WillCollide(CurrChunk, TestBox)
-        if TestTile.GetTileID() = 1 then
-            this.BoundingBox.SetBoxY(TestTile.BoundingBox.GetBoxY2)
-        else
-            this.BoundingBox.SetBoxY(this.BoundingBox.GetBoxY() - MOVEMENT_AMOUNT*PlayerSpeed)
-        end if
-    end if
-    
-    TestBox = this.BoundingBox
-    
-    if multikey(SC_S) then
-        TestBox.SetBoxY(this.BoundingBox.GetBoxY() + MOVEMENT_AMOUNT*PlayerSpeed)
-        TestTile = this.WillCollide(CurrChunk, TestBox)
-        if TestTile.GetTileID() = 1 then
-            this.BoundingBox.SetBoxY(TestTile.BoundingBox.GetBoxY-this.BoundingBox.GetBoxHeight())
-        else
-            this.BoundingBox.SetBoxY(this.BoundingBox.GetBoxY() + MOVEMENT_AMOUNT*PlayerSpeed)
-        end if
-    end if
-    
-    TestBox = this.BoundingBox
-    
-    if multikey(SC_D) then
-        TestBox.SetBoxX(this.BoundingBox.GetBoxX() + MOVEMENT_AMOUNT*PlayerSpeed)
-        TestTile = this.WillCollide(CurrChunk, TestBox)
-        if TestTile.GetTileID() = 1 then
-            this.BoundingBox.SetBoxX(TestTile.BoundingBox.GetBoxX-this.BoundingBox.GetBoxWidth())
-        else
-            this.BoundingBox.SetBoxX(this.BoundingBox.GetBoxX() + MOVEMENT_AMOUNT*PlayerSpeed)
-        end if
-    end if
-    
-    TestBox = this.BoundingBox
-    
-    if multikey(SC_A) then
-        TestBox.SetBoxX(this.BoundingBox.GetBoxX() - MOVEMENT_AMOUNT*PlayerSpeed)
-        TestTile = this.WillCollide(CurrChunk, TestBox)
-        if TestTile.GetTileID() = 1 then
+    TestBox.SetBoxX(this.BoundingBox.GetBoxX() + moveX)
+    TestTile = this.WillCollide(CurrChunk, TestBox)
+
+    if TestTile.GetTileID() = 1 then
+        if leftRight < 0 then
             this.BoundingBox.SetBoxX(TestTile.BoundingBox.GetBoxX2)
         else
-            this.BoundingBox.SetBoxX(this.BoundingBox.GetBoxX() - MOVEMENT_AMOUNT*PlayerSpeed)
+            this.BoundingBox.SetBoxX(TestTile.BoundingBox.GetBoxX-this.BoundingBox.GetBoxWidth())
         end if
+    else 
+        this.BoundingBox.SetBoxX(this.BoundingBox.GetBoxX + moveX)
     end if
-    
-    'dim TestTile as Tile
-    'TestTile = this.WillCollide(CurrChunk)
-    'if TestTile.GetTileID() = 1 then
-    '    this.IsColliding = 1
-    'elseif TestTile.GetTileID() = -1 then
-    '    this.IsColliding = 0
-    'end if
+
+    ' Check Y-axis collision
+    TestBox = this.BoundingBox
+    TestBox.SetBoxY(this.BoundingBox.GetBoxY() + moveY)
+    TestTile = this.WillCollide(CurrChunk, TestBox)
+
+    if TestTile.GetTileID() = 1 then
+        if upDown < 0 then
+            this.BoundingBox.SetBoxY(TestTile.BoundingBox.GetBoxY2)
+        else
+            this.BoundingBox.SetBoxY(TestTile.BoundingBox.GetBoxY-this.BoundingBox.GetBoxHeight())
+        end if
+    else
+        this.BoundingBox.SetBoxY(this.BoundingBox.GetBoxY + moveY)
+    end if
     
 end sub
 
