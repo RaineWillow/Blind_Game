@@ -35,10 +35,28 @@ sub Chunk.Update() 'updates the chunk
 end sub
 
 sub Chunk.Render(byval Viewer as Camera) 'Renders the chunk
-    for x as integer = 0 to 63
-        for y as integer = 0 to 63
+    dim StartX1 as integer = (ChunkX + Viewer.GetCameraX())/32 + 1
+    dim StartY1 as integer = (ChunkY + Viewer.GetCameraY())/32 + 1
+    dim StartX2 as integer = abs((ChunkX + Viewer.GetCameraX()-800)/32)
+    dim StartY2 as integer = abs((ChunkY + Viewer.GetCameraY()-600)/32)
+    if StartX1 >= 0 then
+        StartX1 = 0
+    end if
+    if StartY1 >= 0 then
+        StartY1 = 0
+    end if
+    if StartX2 >= 63 then
+        StartX2 = 63
+    end if
+    if StartY2 >= 63 then
+        StartY2 = 63
+    end if
+    StartX1 = abs(StartX1)
+    StartY1 = abs(StartY1)
+    for x as integer = StartX1 to StartX2
+        for y as integer = StartY1 to StartY2
             put (ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY()), ImageList(this.TileList(x, y).GetTileID()), trans
-            put (ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY()), ImageList(2), trans
+            'put (ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY()), ImageList(2), trans
         next
     next
 end sub

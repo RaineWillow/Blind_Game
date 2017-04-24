@@ -2,7 +2,7 @@
 
 type Player
     private:
-        dim PlayerSpeed as integer = 300
+        dim PlayerSpeed as integer = 200
         
         dim IsColliding as integer
     public:
