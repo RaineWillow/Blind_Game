@@ -18,7 +18,7 @@ type Chunk
 end type
 
 sub Chunk.Init(byval ChunkX as integer, byval ChunkY as integer)
-    open "Chk1.chunk" for input as #1
+    open "saves/Chk1.chunk" for input as #1
     for x as integer = 0 to 63
         for y as integer = 0 to 63
             dim newtile as integer
