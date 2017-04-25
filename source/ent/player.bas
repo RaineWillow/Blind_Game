@@ -48,8 +48,8 @@ sub Player.Update(byref CurrChunk as Chunk)
     dim moveX as Integer
     dim moveY as Integer
 
-    leftRight = multikey(SC_A) + -1*multikey(SC_E)
-    upDown = multikey(SC_COMMA) + -1*multikey(SC_O)
+    leftRight = multikey(LEFT_KEY) + -1*multikey(RIGHT_KEY)
+    upDown = multikey(UP_KEY) + -1*multikey(DOWN_KEY)
     moveX = leftRight*MOVEMENT_AMOUNT*this.PlayerSpeed
     moveY = upDown*MOVEMENT_AMOUNT*this.PlayerSpeed
 

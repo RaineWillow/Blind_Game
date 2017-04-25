@@ -16,8 +16,18 @@ line ImageList(1), (0, 0)-(32, 32), rgb(255, 255, 255), bf
 line ImageList(2), (0, 0)-(32, 32), rgb(160, 100, 100), b
 
 dim shared MOVEMENT_AMOUNT as double
-dim shared MOVE_X_DEBUG as integer
-dim shared MOVE_Y_DEBUG as integer
+
+dim shared UP_KEY as integer
+dim shared DOWN_KEY as integer
+dim shared LEFT_KEY as integer
+dim shared RIGHT_KEY as integer
+
+open "key_layout.dat" for input as #2
+input #2, UP_KEY
+input #2, DOWN_KEY
+input #2, LEFT_KEY
+input #2, RIGHT_KEY
+close #2
 
 #include "source/box.bas"
 #include "source/game.bas"
@@ -63,7 +73,6 @@ sub App.Main()
       cls 'clears the screen
       this.Game.Render() 'Renders the game onto the screen
       print "FPS:"; this.fps
-      print "Movement Debug:"; MOVE_X_DEBUG; ", "; MOVE_Y_DEBUG
       screenunlock
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
       
