@@ -35,7 +35,7 @@ close #2
 type App
    private:
       dim Fps as integer
-      dim Max_Fps as integer = 60
+      dim Max_Fps as integer = 200
       dim Game as Engine
    public:
       declare Function FrameCounter() As Integer
@@ -43,7 +43,7 @@ type App
       declare sub Main()
 end type
 
-'===============================================================================
+'=============================================================================== Dodicat
 Function App.FrameCounter() As Integer
     Var t1=Timer,t2=t1
     Static As Double t3,frames,answer
