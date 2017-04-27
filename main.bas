@@ -13,7 +13,7 @@ next
 
 line ImageList(0), (0, 0)-(32, 32), rgb(20, 20, 20), bf
 line ImageList(1), (0, 0)-(32, 32), rgb(255, 255, 255), bf
-line ImageList(2), (0, 0)-(32, 32), rgb(160, 100, 100), b
+line ImageList(2), (0, 0)-(31, 31), rgb(160, 100, 100), b
 
 dim shared MOVEMENT_AMOUNT as double
 
@@ -29,6 +29,8 @@ input #2, LEFT_KEY
 input #2, RIGHT_KEY
 close #2
 
+#include "source/utils/split.bas"
+#include "source/utils/mouse.bas"
 #include "source/box.bas"
 #include "source/game.bas"
 

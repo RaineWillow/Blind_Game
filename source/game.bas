@@ -12,13 +12,14 @@ type Engine
 end type
 
 sub Engine.Init()
-    World.Init()
+    this.World.Init()
 end sub
 
 sub Engine.Update()
-    World.Update()
+    Mouse.Update()
+    this.World.Update()
 end sub
 
 sub Engine.Render()
-    World.Render()
+    this.World.Render()
 end sub
