@@ -18,13 +18,16 @@ type Chunk
 end type
 
 sub Chunk.Init(byval ChunkX as integer, byval ChunkY as integer)
+    dim newtile as string
+    dim FileData() as string
     open "saves/Chk1.chunk" for input as #1
     for x as integer = 0 to 63
         for y as integer = 0 to 63
-            dim newtile as integer
             this.TileList(x, y).BoundingBox.Init(ChunkX + (32*x), ChunkY + (32*y), 32, 32)
             input #1, newtile
-            this.TileList(x, y).SetTileID(newtile)
+            split(newtile, , , FileData())
+            this.TileList(x, y).SetTileID(val(FileData(0)))
+            this.TileList(x, y).SetExit(val(FileData(1)))
         next
     next
     close #1

@@ -15,7 +15,13 @@ next
 open "Chk1.chunk" for output as #1
 for x as integer = 0 to 63
     for y as integer = 0 to 63
-        write #1, Chunk(x, y)
+        dim WriteData as string
+        if x = 31 and y = 31 then
+            WriteData = str(Chunk(x, y)) + " 1"
+        else
+            WriteData = str(Chunk(x, y)) + " 0"
+        end if
+        write #1, WriteData
     next
 next
 close #1

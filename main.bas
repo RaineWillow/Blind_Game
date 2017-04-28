@@ -12,6 +12,7 @@ for x as integer = 0 to 3
 next
 
 line ImageList(0), (0, 0)-(32, 32), rgb(20, 20, 20), bf
+line ImageList(0), (0, 0)-(32, 32), rgb(40, 40, 40), b
 line ImageList(1), (0, 0)-(32, 32), rgb(255, 255, 255), bf
 line ImageList(2), (0, 0)-(31, 31), rgb(160, 100, 100), b
 
@@ -75,7 +76,7 @@ sub App.Main()
       cls 'clears the screen
       this.Game.Render() 'Renders the game onto the screen
       print "FPS:"; this.fps
-      screenunlock
+      screenunlock 'Unlocks the screen
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
       
       if FPS > 0 then 'Sets the global movement speed
