@@ -20,7 +20,7 @@ type Player
 end type
 
 sub Player.Init(byval PlayerX as integer, byval PlayerY as integer)
-    this.BoundingBox.Init(PlayerX, PlayerY, 32, 32)
+    this.BoundingBox.Init(PlayerX, PlayerY, 28, 28)
 end sub
 
 function Player.WillCollide(byref CurrChunk as Chunk, byval TestBox as Box) as Tile

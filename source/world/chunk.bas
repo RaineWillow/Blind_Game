@@ -59,6 +59,7 @@ sub Chunk.Render(byval Viewer as Camera) 'Renders the chunk
     for x as integer = StartX1 to StartX2
         for y as integer = StartY1 to StartY2
             put (ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY()), ImageList(this.TileList(x, y).GetTileID()), trans
+            this.TileList(x, y).Render(ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY())
             dim TestTile as Tile
             TestTile.BoundingBox.Init(ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY(), 32, 32)
             if GetBoxInPoint(TestTile.BoundingBox, Mouse.GetMouseX(), Mouse.GetMouseY()) then

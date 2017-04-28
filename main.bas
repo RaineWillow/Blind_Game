@@ -15,6 +15,7 @@ line ImageList(0), (0, 0)-(32, 32), rgb(20, 20, 20), bf
 line ImageList(0), (0, 0)-(32, 32), rgb(40, 40, 40), b
 line ImageList(1), (0, 0)-(32, 32), rgb(255, 255, 255), bf
 line ImageList(2), (0, 0)-(31, 31), rgb(160, 100, 100), b
+line ImageList(3), (4, 4)-(28, 28), rgb(100, 100, 180), bf
 
 dim shared MOVEMENT_AMOUNT as double
 
