@@ -6,16 +6,20 @@ dim ImgPth as string = "res/img/tiles/"
 
 screenres 800, 600, 32
 
-dim shared ImageList(0 to 3) as any ptr
+dim shared ImageList(0 to 4) as any ptr
 for x as integer = 0 to 3
     ImageList(x) = imagecreate(32, 32)
 next
 
-line ImageList(0), (0, 0)-(32, 32), rgb(20, 20, 20), bf
-line ImageList(0), (0, 0)-(32, 32), rgb(40, 40, 40), b
-line ImageList(1), (0, 0)-(32, 32), rgb(255, 255, 255), bf
-line ImageList(2), (0, 0)-(31, 31), rgb(160, 100, 100), b
-line ImageList(3), (4, 4)-(28, 28), rgb(100, 100, 180), bf
+ImageList(4) = imagecreate(64, 90)
+
+line ImageList(0), (0, 0)-(32, 32), rgb(20, 20, 20), bf                         'Solid floor
+line ImageList(0), (0, 0)-(32, 32), rgb(40, 40, 40), b                          'Solid floor outline
+line ImageList(1), (0, 0)-(32, 32), rgb(255, 255, 255), bf                      'Solid tile
+line ImageList(2), (0, 0)-(31, 31), rgb(160, 100, 100), b                       'Mouse
+line ImageList(3), (4, 4)-(28, 28), rgb(100, 100, 180), bf                      'exit square
+line ImageList(4), (0, 0)-(64, 90), rgb(200, 200, 200), bf
+
 
 dim shared MOVEMENT_AMOUNT as double
 
@@ -23,12 +27,14 @@ dim shared UP_KEY as integer
 dim shared DOWN_KEY as integer
 dim shared LEFT_KEY as integer
 dim shared RIGHT_KEY as integer
+dim shared INTERACT_KEY as integer
 
 open "key_layout.dat" for input as #2
 input #2, UP_KEY
 input #2, DOWN_KEY
 input #2, LEFT_KEY
 input #2, RIGHT_KEY
+input #2, INTERACT_KEY
 close #2
 
 #include "source/utils/split.bas"
@@ -76,7 +82,7 @@ sub App.Main()
       screenlock 'locks the screen so you can put stuff on it
       cls 'clears the screen
       this.Game.Render() 'Renders the game onto the screen
-      print "FPS:"; this.fps
+      print "FPS:"; this.fps                                                                                                                                                                 
       screenunlock 'Unlocks the screen
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
       

@@ -6,6 +6,8 @@ type Player
         
         dim IsColliding as integer
     public:
+    
+        dim PlayerText as string = ""
         dim BoundingBox as Box
         
         declare function WillCollide(byref CurrChunk as Chunk, byval TestBox as Box) as Tile
@@ -83,10 +85,13 @@ sub Player.Update(byref CurrChunk as Chunk)
         this.BoundingBox.SetBoxY(this.BoundingBox.GetBoxY + moveY)
     end if
     
+    this.PlayerText = ""
+    
 end sub
 
 sub Player.Render(byval Viewer as Camera)
     line (this.BoundingBox.GetBoxX() + Viewer.GetCameraX(), this.BoundingBox.GetBoxY() + Viewer.GetCameraY())-(this.BoundingBox.GetBoxX2() + Viewer.GetCameraX(), this.BoundingBox.GetBoxY2() + Viewer.GetCameraY()), rgb(255, 255, 255), B
+    draw string (this.BoundingBox.GetBoxX2 - (len(this.PlayerText)*8)/2 + Viewer.GetCameraX(), this.BoundingBox.GetBoxY2 + 6 + Viewer.GetCameraY()), this.PlayerText 
 end sub
 
 sub Player.SetTile(byval TileX as integer, byval TileY as integer)
