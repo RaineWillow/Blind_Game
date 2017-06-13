@@ -80,36 +80,31 @@ End Function
 
 sub App.Main()
    this.Game.Init()
+   dim Dt as double
    dim TheTime as double
-   dim TheLastTime as integer
+   dim Delay as double
    dim TrueFPS as integer
    dim Ploof as long
+   Dt = 0
    TheTime = timer
-   TheLastTime = TheTime
+   Delay = 1000/this.Max_FPS
    do 'The main rendering loop
-      TheTime = timer
       screenlock 'locks the screen so you can put stuff on it
       cls 'clears the screen
       this.Game.Render() 'Renders the game onto the screen
-      print "FPS:"; this.fps; " Test FPS: "; TrueFPS
+      print "Delta Time:"; Dt
+      print "FPS:"; 1000/Dt 
       print TheTime
       screenunlock 'Unlocks the screen
-      sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
       Mouse.Update()
       
-      
-      'Test FPS
-      FPS_TEST = FPS_TEST + 1
-      if TheTime > TheLastTime then
-          TrueFPS = FPS_TEST
-          FPS_TEST = 0
-          TheLastTime = TheTime
-      end if
-      
-      if FPS > 0 then 'Sets the global movement speed
-          MOVEMENT_AMOUNT = 1/FPS
-      end if
+      MOVEMENT_AMOUNT = 2*Dt*0.00025
+
       this.Game.Update() 'Updates the engine
+      sleep (Delay) ' sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time  
+      Dt = (timer - TheTime)*1000
+      TheTime = timer
+
    loop until inkey = chr(255) + "k" or multikey(SC_ESCAPE) 'loops until the escape key is hit or the close button is hit
    
 end sub
