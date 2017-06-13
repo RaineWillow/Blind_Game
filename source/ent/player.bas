@@ -85,7 +85,7 @@ sub Player.Update(byref CurrChunk as Chunk)
         this.BoundingBox.SetBoxY(this.BoundingBox.GetBoxY + moveY)
     end if
     
-    this.PlayerText = ""
+    this.PlayerText = str(moveX)
     
 end sub
 

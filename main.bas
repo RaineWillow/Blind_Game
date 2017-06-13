@@ -95,6 +95,8 @@ sub App.Main()
       screenunlock 'Unlocks the screen
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
       
+      Mouse.Update()
+      
       
       'Test FPS
       FPS_TEST = FPS_TEST + 1

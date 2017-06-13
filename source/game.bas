@@ -16,7 +16,6 @@ sub Engine.Init()
 end sub
 
 sub Engine.Update()
-    Mouse.Update()
     this.World.Update()
 end sub
 
