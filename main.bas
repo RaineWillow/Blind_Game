@@ -80,31 +80,16 @@ End Function
 
 sub App.Main()
    this.Game.Init()
-   dim TheTime as double
-   dim TheLastTime as integer
-   dim TrueFPS as integer
-   dim Ploof as long
-   TheTime = timer
-   TheLastTime = TheTime
    do 'The main rendering loop
       TheTime = timer
       screenlock 'locks the screen so you can put stuff on it
       cls 'clears the screen
       this.Game.Render() 'Renders the game onto the screen
-      print "FPS:"; this.fps; " Test FPS: "; TrueFPS
-      print TheTime
+      print "FPS:"; this.fps
       screenunlock 'Unlocks the screen
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
+      
       Mouse.Update()
-      
-      
-      'Test FPS
-      FPS_TEST = FPS_TEST + 1
-      if TheTime > TheLastTime then
-          TrueFPS = FPS_TEST
-          FPS_TEST = 0
-          TheLastTime = TheTime
-      end if
       
       if FPS > 0 then 'Sets the global movement speed
           MOVEMENT_AMOUNT = 1/FPS
