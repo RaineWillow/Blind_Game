@@ -7,6 +7,8 @@ type Chunk
         dim ChunkX as integer
         dim ChunkY as integer
         dim TileList(0 to 63, 0 to 63) as Tile
+        
+        dim FilePath as string = "saves/Chunk"
     public:
         declare sub Init(byval ChunkX as integer, byval ChunkY as integer)
         declare sub Update()
@@ -14,7 +16,11 @@ type Chunk
         
         declare function GetTileX(byval TileX as integer) as integer
         declare function GetTileY(byval TileY as integer) as integer
+        
         declare function GetTile(byval TileX as integer, byval TileY as integer) as Tile
+        declare sub SetTile(byval TileX as integer, byval TileY as integer, byval TileSet as Tile)
+        
+        declare sub Save()
 end type
 
 sub Chunk.Init(byval ChunkX as integer, byval ChunkY as integer)
@@ -26,7 +32,7 @@ sub Chunk.Init(byval ChunkX as integer, byval ChunkY as integer)
             this.TileList(x, y).BoundingBox.Init(ChunkX + (32*x), ChunkY + (32*y), 32, 32)
             input #1, newtile
             split(newtile, , , FileData())
-            this.TileList(x, y).SetTileID(val(FileData(0)))
+            this.TileList(x, y).SetSolid(val(FileData(0)))
             this.TileList(x, y).SetExit(val(FileData(1)))
         next
     next
@@ -58,7 +64,7 @@ sub Chunk.Render(byval Viewer as Camera) 'Renders the chunk
     StartY1 = abs(StartY1)
     for x as integer = StartX1 to StartX2
         for y as integer = StartY1 to StartY2
-            put (ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY()), ImageList(this.TileList(x, y).GetTileID()), trans
+            put (ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY()), ImageList(this.TileList(x, y).GetSolid()), trans
             this.TileList(x, y).Render(ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY())
             dim TestTile as Tile
             TestTile.BoundingBox.Init(ChunkX + (32*x) + Viewer.GetCameraX(), ChunkY + (32*y) + Viewer.GetCameraY(), 32, 32)
@@ -82,3 +88,19 @@ end function
 function Chunk.GetTile(byval TileX as integer, byval TileY as integer) as Tile
     return TileList(TileX, TileY)
 end function
+
+sub Chunk.SetTile(byval TileX as integer, byval TileY as integer, byval TileSet as Tile)
+    this.TileList(TileX, TileY) = TileSet
+end sub
+
+sub Chunk.Save()
+    open this.filepath+str(this.ChunkID)+".chunk" for output as #1
+    for X as integer = 0 to 63
+        for Y as integer = 0 to 63
+            dim WriteTile as Tile = this.GetTile(X, Y)
+            dim WriteData as string = str(WriteTile.GetSolid()) + str(WriteTile.GetExit())
+            write #1, WriteData
+        next
+    next
+end sub
+

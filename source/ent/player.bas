@@ -22,7 +22,7 @@ type Player
 end type
 
 sub Player.Init(byval PlayerX as integer, byval PlayerY as integer)
-    this.BoundingBox.Init(PlayerX, PlayerY, 28, 28)
+    this.BoundingBox.Init(PlayerX, PlayerY, 24, 24)
 end sub
 
 function Player.WillCollide(byref CurrChunk as Chunk, byval TestBox as Box) as Tile
@@ -30,7 +30,7 @@ function Player.WillCollide(byref CurrChunk as Chunk, byval TestBox as Box) as T
     for x as integer = (this.GetTileX() - 1) to (this.GetTileX + 1)
         for y as integer = (this.GetTileY() - 1) to (this.GetTileY + 1)
             CurrTile = CurrChunk.GetTile(x, y)
-            if CurrTile.GetTileID() = 1 then 'This may be changed later
+            if CurrTile.GetSolid() = 1 then 'This may be changed later
                 if GetBoxIntersect(TestBox, CurrTile.BoundingBox) then
                     return CurrTile
                 end if
@@ -38,7 +38,7 @@ function Player.WillCollide(byref CurrChunk as Chunk, byval TestBox as Box) as T
         next
     next
     dim EndTile as Tile
-    EndTile.SetTileID(-1)
+    EndTile.SetSolid(-1)
     return EndTile
 end function
 
@@ -47,8 +47,8 @@ sub Player.Update(byref CurrChunk as Chunk)
     dim TestTile as Tile
     dim upDown as Integer
     dim leftRight as Integer
-    dim moveX as Integer
-    dim moveY as Integer
+    dim moveX as double
+    dim moveY as double
 
     leftRight = multikey(LEFT_KEY) + -1*multikey(RIGHT_KEY)
     upDown = multikey(UP_KEY) + -1*multikey(DOWN_KEY)
@@ -60,7 +60,7 @@ sub Player.Update(byref CurrChunk as Chunk)
     TestBox.SetBoxX(this.BoundingBox.GetBoxX() + moveX)
     TestTile = this.WillCollide(CurrChunk, TestBox)
 
-    if TestTile.GetTileID() = 1 then
+    if TestTile.GetSolid() = 1 then
         if leftRight < 0 then
             this.BoundingBox.SetBoxX(TestTile.BoundingBox.GetBoxX2)
         else
@@ -75,7 +75,7 @@ sub Player.Update(byref CurrChunk as Chunk)
     TestBox.SetBoxY(this.BoundingBox.GetBoxY() + moveY)
     TestTile = this.WillCollide(CurrChunk, TestBox)
 
-    if TestTile.GetTileID() = 1 then
+    if TestTile.GetSolid() = 1 then
         if upDown < 0 then
             this.BoundingBox.SetBoxY(TestTile.BoundingBox.GetBoxY2)
         else
@@ -90,7 +90,7 @@ sub Player.Update(byref CurrChunk as Chunk)
 end sub
 
 sub Player.Render(byval Viewer as Camera)
-    line (this.BoundingBox.GetBoxX() + Viewer.GetCameraX(), this.BoundingBox.GetBoxY() + Viewer.GetCameraY())-(this.BoundingBox.GetBoxX2() + Viewer.GetCameraX(), this.BoundingBox.GetBoxY2() + Viewer.GetCameraY()), rgb(255, 255, 255), B
+    line (this.BoundingBox.GetBoxX() + Viewer.GetCameraX(), this.BoundingBox.GetBoxY() + Viewer.GetCameraY())-(this.BoundingBox.GetBoxX2() + Viewer.GetCameraX(), this.BoundingBox.GetBoxY2() + Viewer.GetCameraY()), rgb(100, 150, 225), B
     draw string (this.BoundingBox.GetBoxX2 - (len(this.PlayerText)*8)/2 + Viewer.GetCameraX(), this.BoundingBox.GetBoxY2 + 6 + Viewer.GetCameraY()), this.PlayerText 
 end sub
 

@@ -1,10 +1,13 @@
 'Main file
 #include "fbgfx.bi"
 using FB
+#include "vbcompat.bi"
 
 dim ImgPth as string = "res/img/tiles/"
 
 screenres 800, 600, 32
+
+dim shared FPS_TEST as integer
 
 dim shared ImageList(0 to 4) as any ptr
 for x as integer = 0 to 3
@@ -78,19 +81,35 @@ End Function
 
 sub App.Main()
    this.Game.Init()
+   dim TheTime as integer
+   dim TheLastTime as integer
+   dim TrueFPS as integer
+   TheTime = timer
+   TheLastTime = TheTime
    do 'The main rendering loop
+      TheTime = timer
       screenlock 'locks the screen so you can put stuff on it
       cls 'clears the screen
       this.Game.Render() 'Renders the game onto the screen
-      print "FPS:"; this.fps                                                                                                                                                                 
+      print "FPS:"; this.fps; " Test FPS: "; TrueFPS
       screenunlock 'Unlocks the screen
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
+      
+      
+      'Test FPS
+      FPS_TEST = FPS_TEST + 1
+      if TheTime > TheLastTime then
+          TrueFPS = FPS_TEST
+          FPS_TEST = 0
+          TheLastTime = TheTime
+      end if
       
       if FPS > 0 then 'Sets the global movement speed
           MOVEMENT_AMOUNT = 1/FPS
       end if
       this.Game.Update() 'Updates the engine
    loop until inkey = chr(255) + "k" or multikey(SC_ESCAPE) 'loops until the escape key is hit or the close button is hit
+   
 end sub
 
 dim Self as App
