@@ -26,7 +26,7 @@ sub ZaWarudo.CheckExit()
     dim CheckTile as Tile
     CheckTile = LoadedChunk.GetTile(this.Player1.GetTileX, this.Player1.GetTileY)
     if CheckTile.GetExit() = 1 then
-        'this.Player1.PlayerText = "Press <Interact Key> to descend"
+        this.Player1.PlayerText = "Press <Interact Key> to descend"
         'Check for E
     end if
 end sub

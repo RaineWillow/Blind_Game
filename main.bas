@@ -23,7 +23,6 @@ line ImageList(2), (0, 0)-(31, 31), rgb(160, 100, 100), b                       
 line ImageList(3), (4, 4)-(28, 28), rgb(100, 100, 180), bf                      'exit square
 line ImageList(4), (0, 0)-(64, 90), rgb(200, 200, 200), bf
 
-
 dim shared MOVEMENT_AMOUNT as double
 
 dim shared UP_KEY as integer
