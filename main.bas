@@ -2,6 +2,7 @@
 #include "fbgfx.bi"
 using FB
 #include "vbcompat.bi"
+#include "inc/GoodTime.bi"
 
 dim ImgPth as string = "res/img/tiles/"
 
@@ -80,9 +81,10 @@ End Function
 
 sub App.Main()
    this.Game.Init()
-   dim TheTime as integer
+   dim TheTime as double
    dim TheLastTime as integer
    dim TrueFPS as integer
+   dim Ploof as long
    TheTime = timer
    TheLastTime = TheTime
    do 'The main rendering loop
@@ -91,9 +93,10 @@ sub App.Main()
       cls 'clears the screen
       this.Game.Render() 'Renders the game onto the screen
       print "FPS:"; this.fps; " Test FPS: "; TrueFPS
+      print TheTime
       screenunlock 'Unlocks the screen
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
-      
+      'Ploof = getMilliseconds()
       Mouse.Update()
       
       
