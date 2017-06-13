@@ -2,7 +2,6 @@
 #include "fbgfx.bi"
 using FB
 #include "vbcompat.bi"
-#include "inc/GoodTime.bi"
 
 dim ImgPth as string = "res/img/tiles/"
 
@@ -96,7 +95,6 @@ sub App.Main()
       print TheTime
       screenunlock 'Unlocks the screen
       sleep this.Regulate(this.Max_FPS, this.fps) 'sleeps for a specified amount of time
-      'Ploof = getMilliseconds()
       Mouse.Update()
       
       
